@@ -1,0 +1,20 @@
+version: "3.4"
+
+services:
+  server:
+    image: ramontc/demo-grcp-server
+    build:
+      context: .
+      dockerfile: DemoService/Dockerfile
+
+  envoy:
+    image: envoy:v1
+    build:
+      context: ./Envoy
+      dockerfile: Dockerfile
+
+  client:
+    image: ramontc/demo-grcp-client
+    build:
+      context: .
+      dockerfile: DemoClient/Dockerfile

@@ -1,0 +1,22 @@
+version: "3.4"
+
+services:
+  server:
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+    - 50052:80
+  
+  envoy:
+    volumes:
+      - ./Envoy/config:/etc/envoy      
+    ports:
+    - 51051:51051
+
+  client:
+    ports:
+    - 9002:80
+    environment:
+    - ServerUri=http://envoy:51051
+
+    
