@@ -1,18 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" Generator="MSBuild:Compile"/>
-    <Content Include="@(Protobuf)"/>
-    <None Remove="@(Protobuf)"/>
+    <None Remove="@(Protobuf)" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore.Server" Version="0.1.21-pre1"/>
-    <PackageReference Include="Google.Protobuf" Version="3.8.0"/>
-    <PackageReference Include="Grpc.Tools" Version="1.21.0" PrivateAssets="All"/>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.10"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0-preview6.19307.2"/>
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="0.1.21-pre1" />
+    <PackageReference Include="Google.Protobuf" Version="3.8.0" />
+    <PackageReference Include="Grpc.Tools" Version="1.21.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0-preview6.19307.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Protos\" />
   </ItemGroup>
 </Project>
