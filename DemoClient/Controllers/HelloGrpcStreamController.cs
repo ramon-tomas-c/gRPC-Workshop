@@ -25,30 +25,9 @@ namespace DemoClient
         [Route("{name}")]
         public async Task<IActionResult> CallHello(string name = "GreeterClient")
         {
-            var result = new List<string>();
-            try
-            {
-                var metadata = new Metadata()
-                {
-                    { "Authorization", $"Bearer {JwtToken.Get()}"}
-                };
-                
-                var channel = GrpcChannel.ForAddress(_serverUri);                
-                var client = new Greeter.GreeterClient(channel);
-                var call = client.SayHelloStream(new Greet.HelloRequest() { Name = name}, metadata);
-                var responseStream = call.ResponseStream;
-                while (await responseStream.MoveNext())
-                {
-                    result.Add(responseStream.Current.Message);
-                }
-            }
-            catch (RpcException e)
-            {
-                Console.WriteLine("RPC failed " + e);
-                throw;
-            }
+            
 
-            return Ok(result);
+            return Ok();
         }
     }
 }
