@@ -2,10 +2,8 @@ version: "3.4"
 
 services:
   server:
-    environment:
-    - ASPNETCORE_ENVIRONMENT=Development
     ports:
-    - 50052:80
+    - 9001:80
   
   envoy:
     volumes:

@@ -2,6 +2,7 @@
 using Greet;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
@@ -16,14 +17,20 @@ namespace DemoClient
     {
 
         private readonly string _serverUri;
-        public HelloGrpcController(IOptions<Settings> settings)
+        private readonly ILogger<HelloGrpcController> _logger;
+
+        public HelloGrpcController(
+            IOptions<Settings> settings,
+            ILogger<HelloGrpcController> logger)
         {
             _serverUri = settings.Value.ServerUri;
+            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> CallHello(string name = "GreeterClient")
         {
+            _logger.LogInformation("*************** Calling from Grpc Client **********************");
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(_serverUri);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken.Get());
@@ -32,6 +39,8 @@ namespace DemoClient
 
             var reply = await client.SayHelloAsync(
                       new HelloRequest { Name = name });
+
+            _logger.LogInformation("*************** Received message from Grpc Server **********************");
 
             return Ok(reply);
         }        
